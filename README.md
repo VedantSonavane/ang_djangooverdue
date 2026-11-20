@@ -142,3 +142,8 @@ requirements.txt    Python dependencies
 - mysqlclient
 - python-dotenv
 - Gunicorn for WSGI deployment
+
+## Design decisions
+
+- Django and Laravel share one MySQL database. Laravel owns the schema; Django maps the `tasks` table with `managed = False`.
+- An overdue task cannot be reopened (to `TODO` or `IN_PROGRESS`), because the next overdue sync would mark it `OVERDUE` again. It can only be closed (`DONE`), and only by an admin.

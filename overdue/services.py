@@ -41,6 +41,6 @@ def check_transition(task: Task, new_status: str, role: str) -> tuple[bool, str]
             if role != "admin":
                 return False, "Only an admin can close an overdue task"
             return True, "Admin closed the overdue task"
-        return False, "Overdue tasks can only be closed by an admin"
+        return False, "Overdue tasks cannot be reopened; they can only be closed"
 
     return True, "Transition allowed"
