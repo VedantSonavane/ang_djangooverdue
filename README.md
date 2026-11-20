@@ -147,3 +147,16 @@ requirements.txt    Python dependencies
 
 - Django and Laravel share one MySQL database. Laravel owns the schema; Django maps the `tasks` table with `managed = False`.
 - An overdue task cannot be reopened (to `TODO` or `IN_PROGRESS`), because the next overdue sync would mark it `OVERDUE` again. It can only be closed (`DONE`), and only by an admin.
+
+## Live deployment
+
+| Item | URL |
+| --- | --- |
+| Service (Render) | https://ang-djangooverdue.onrender.com |
+| Health check | https://ang-djangooverdue.onrender.com/health |
+
+```bash
+curl https://ang-djangooverdue.onrender.com/health
+```
+
+A healthy service returns `{"success": true, "message": "healthy", "data": {"service": "overdue"}}`. The POST endpoints need the shared `X-Service-Key` and are called only by the Laravel API at https://ang-laravelbackend.onrender.com. Free hosting sleeps when idle, so the first request after inactivity can take about a minute.
