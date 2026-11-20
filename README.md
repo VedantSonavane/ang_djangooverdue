@@ -160,3 +160,7 @@ curl https://ang-djangooverdue.onrender.com/health
 ```
 
 A healthy service returns `{"success": true, "message": "healthy", "data": {"service": "overdue"}}`. The POST endpoints need the shared `X-Service-Key` and are called only by the Laravel API at https://ang-laravelbackend.onrender.com. Free hosting sleeps when idle, so the first request after inactivity can take about a minute.
+
+### Scheduled sync
+
+A GitHub Actions workflow (`.github/workflows/overdue-sync.yml`) calls `POST /api/overdue/sync` every 30 minutes, so overdue statuses are updated even when nobody is using the app. It authenticates with the `SERVICE_KEY` repository secret and can also be run manually from the repository's Actions tab.
